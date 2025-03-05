@@ -4,7 +4,7 @@ layout: default
 
 <div style="text-align: center;">
     <p style="margin: 0;">
-        <strong>Tom Baker<sup>1*,2</sup></strong>
+        <strong>Tom Baker<sup>1<sup>*</sup>,2</sup></strong>
         <span style="margin-left: 1em;"></span>
         <strong>Javier Nistal<sup>1</sup></strong>
     </p>
@@ -28,6 +28,7 @@ Text-to-audio diffusion models excel at generating high-quality, full-length mus
 
 ## Audio Examples
 Below are random selected audio examples of generated outputs of LiLAC using chord conditioning. The first audio clip is the original sample, followed by the LiLAC output with only head conditioning, and finally the LiLAC output with head, tail, and residual conditioning. The condition image is also shown for reference.
+
 <table>
   <thead>
     <tr>
