@@ -14,3 +14,12 @@ $header-bg-color-secondary: #7652a3;
 audio.small-audio {
   width: 100px; /* Adjust audio player width */
 }
+
+.main-content{
+  table {
+    th,
+    td {
+      text-align: center;
+    }
+  }
+}
