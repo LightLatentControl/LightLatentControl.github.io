@@ -1,8 +1,6 @@
-<div class="authors">
-**Tom Baker**<br>
-<small>University of Manchester</small><br>
-**Javier Nistal**<br>
-<small>Sony CSL Paris</small>
+<div style="text-align: center;">
+    <p style="margin: 0;">Tom Baker<sup>1</sup>, Javier Nistal<sup>2</sup></p>
+    <p style="margin: 0;"><sup>1</sup>University of Manchester, <sup>2</sup>Sony CSL Paris</p>
 </div>
 
 [![arXiv](https://img.shields.io/badge/arXiv-1234.5678-b31b1b.svg)](https://arxiv.org/abs/1234.5678)
