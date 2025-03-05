@@ -1,10 +1,3 @@
----
-layout: default
-custom_css: assets/style.css
----
-
-# LiLAC: A Lightweight Latent ControlNet for Musical Audio Generation
-
 <div class="authors">
 **Tom Baker**<br>
 <small>University of Manchester</small><br>
