@@ -18,7 +18,7 @@ Text-to-audio diffusion models excel at generating high-quality, full-length mus
 
 ## Architecture Overview
 <div style="width: 50%; margin: 0 auto;">
-    ![Architecture Diagram](assets/LiLAC.png)
+    <img src="assets/LiLAC.png" alt="Architecture Diagram" style="width: 100%;">
 </div>
 *Here is a outline showing how the LiLAC architecture compares to ControlNet. Instead of cloning the encoder of the model we intend to append controls to, we perform a second pass through each of the models frozen encoder blocks, wrapping these by smaller convolutional layers. Specifically, we introduce three layers per block: a **head** layer before the frozen block, a **tail** layer after the frozen block, and a **residual** connection to preserve condition information as it passes through the frozen block.*
 
