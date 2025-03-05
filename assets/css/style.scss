@@ -2,33 +2,12 @@
 ---
 $section-headings-color: #442b63;
 $header-bg-color: #c9a9f1;
-$header-bg-color-secondary: #c9a9f1;
+$header-bg-color-secondary: #7652a3;
 
 @import "{{ site.theme }}";
-
-
-.audio-table {
-  width: 100%;
-  margin: 2rem 0;
-}
-
-.audio-table td {
-  padding: 10px;
-  vertical-align: middle;
-}
-
-/* Remove GitHub corner ribbon */
-.btn.repository-link {
-  display: none;
-}
 
 /* Footer modifications */
 .site-footer {
   display: none !important;
 }
 
-/* Author institutions styling */
-.authors {
-  line-height: 1.6;
-  margin: 1.5rem 0;
-}
