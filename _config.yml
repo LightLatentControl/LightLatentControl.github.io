@@ -1,5 +1,5 @@
-title: LiLAC
-description: Companion website for "Your Paper Title"
+title: [LiLAC: A Lightweight Latent ControlNet for Musical Audio Generation]
+description: Audio Examples
 theme: jekyll-theme-cayman
 remote_theme: pages-themes/cayman@v0.2.0
 plugins:
