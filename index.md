@@ -3,13 +3,15 @@ layout: default
 ---
 
 <div style="text-align: center;">
-    <p style="margin: 0;"><strong>Tom Baker<sup>1,2,*</sup></strong>, <strong>Javier Nistal<sup>1</sup></strong></p>
+    <p style="margin: 0;">
+        <strong>Tom Baker<sup>1*,2</sup></strong>
+        <span style="margin-left: 1em;"></span>
+        <strong>Javier Nistal<sup>1</sup></strong>
+    </p>
     <p style="margin: 0;"><sup>1</sup>Sony CSL Paris</p>
     <p style="margin: 0;"><sup>2</sup>University of Manchester</p>
     <p style="margin: 0; font-size: smaller;"><sup>*</sup>Work completed during internship at Sony CSL Paris</p>
 </div>
-
-[![arXiv](https://img.shields.io/badge/arXiv-1234.5678-b31b1b.svg)](https://arxiv.org/abs/1234.5678)
 
 ## Abstract
 Text-to-audio diffusion models excel at generating high-quality, full-length musical audio with context alignment, but musicians and creators often require finer-grained, time-varying control—challenging the limitations of text prompts alone. While ControlNet enables the incorporation of generic control signals, multi-condition applications often become memory-intensive or restrict users to a fixed set of controls. In this work, we propose a novel, lightweight, and modular control methodology adapted from ControlNet, reducing the parameter count by up to 5x. Through both objective metrics and subjective evaluations, we demonstrate that our method matches the performance of ControlNet in terms of audio quality and condition adherence, while offering greater flexibility and reduced memory usage. 
@@ -26,9 +28,8 @@ Text-to-audio diffusion models excel at generating high-quality, full-length mus
 
 ## Audio Examples
 
-| Example # | Description                                  | Audio File                     |
-|-----------|----------------------------------------------|--------------------------------|
-| 1         | Example 1 description                        | <audio controls src="assets/audio/example1.wav"></audio> |
-| 2         | Example 2 description                        | <audio controls src="assets/audio/example2.wav"></audio> |
-| 3         | Example 3 description                        | <audio controls src="assets/audio/example3.wav"></audio> |
-{:.audio-table}
+| Instrument | Original Sample| LiLAC H | LiLAC H+T+R | Condition |
+|-|-|-|-|-|
+| Electric Guitar| <audio controls src="assets/audio/10o.wav"></audio>| <audio controls src="assets/audio/10lh.wav"></audio> | <audio controls src="assets/audio/10lhtr.wav"></audio> | <img src="assets/images/10.png" style="width: 100%;"> |
+| Synth Pad| <audio controls src="assets/audio/111o.wav"></audio>| <audio controls src="assets/audio/11lh.wav"></audio> | <audio controls src="assets/audio/11lhtr.wav"></audio> | <img src="assets/images/11.png" style="width: 100%;"> |
+| Lead Guitar| <audio controls src="assets/audio/12o.wav"></audio>| <audio controls src="assets/audio/12lh.wav"></audio> | <audio controls src="assets/audio/12lhtr.wav"></audio> | <img src="assets/images/12.png" style="width: 100%;"> |
