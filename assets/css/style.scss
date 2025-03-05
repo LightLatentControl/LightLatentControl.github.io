@@ -1,11 +1,10 @@
 ---
 ---
-
-@import "{{ site.theme }}";
-
 $section-headings-color: #442b63;
 $header-bg-color: #c9a9f1;
 $header-bg-color-secondary: #c9a9f1;
+
+@import "{{ site.theme }}";
 
 
 .audio-table {
