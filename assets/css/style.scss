@@ -4,8 +4,9 @@
 @import "{{ site.theme }}";
 
 .page-header {
-  background-color: #d2afff;
-  background-image: none;
+  background-color: #e1c4ff;
+  background-image: linear-gradient(120deg, #d2afff, #e6d7ff);
+  color: #442b63;
 }
 
 .audio-table {
