@@ -1,0 +1,14 @@
+.page-header {
+  background-color: #d2afff; /* Change header color */
+  background-image: none;
+}
+
+.audio-table {
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.audio-table td {
+  padding: 10px;
+  vertical-align: middle;
+}
