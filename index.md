@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 <div style="text-align: center;">
     <p style="margin: 0;">Tom Baker<sup>1</sup>, Javier Nistal<sup>2</sup></p>
     <p style="margin: 0;"><sup>1</sup>University of Manchester, <sup>2</sup>Sony CSL Paris</p>
