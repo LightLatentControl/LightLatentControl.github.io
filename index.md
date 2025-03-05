@@ -27,9 +27,38 @@ Text-to-audio diffusion models excel at generating high-quality, full-length mus
 ---
 
 ## Audio Examples
-
-| Instrument | Original Sample| LiLAC H | LiLAC H+T+R | Condition |
-|-|-|-|-|-|
-| Electric Guitar| <audio controls src="assets/audio/10o.wav"></audio>| <audio controls src="assets/audio/10lh.wav"></audio> | <audio controls src="assets/audio/10lhtr.wav"></audio> | <img src="assets/images/10.png" style="width: 100%;"> |
-| Synth Pad| <audio controls src="assets/audio/111o.wav"></audio>| <audio controls src="assets/audio/11lh.wav"></audio> | <audio controls src="assets/audio/11lhtr.wav"></audio> | <img src="assets/images/11.png" style="width: 100%;"> |
-| Lead Guitar| <audio controls src="assets/audio/12o.wav"></audio>| <audio controls src="assets/audio/12lh.wav"></audio> | <audio controls src="assets/audio/12lhtr.wav"></audio> | <img src="assets/images/12.png" style="width: 100%;"> |
+Below are random selected audio examples of generated outputs of LiLAC using chord conditioning. The first audio clip is the original sample, followed by the LiLAC output with only head conditioning, and finally the LiLAC output with head, tail, and residual conditioning. The condition image is also shown for reference.
+<table>
+  <thead>
+    <tr>
+      <th>Instrument</th>
+      <th>Original Sample</th>
+      <th>LiLAC H</th>
+      <th>LiLAC H+T+R</th>
+      <th>Condition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Electric Guitar</td>
+      <td><audio controls src="assets/audio/10o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/10lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/10lhtr.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/10.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Synth Pad</td>
+      <td><audio controls src="assets/audio/11o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/11lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/11lhtr.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/11.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Lead Guitar</td>
+      <td><audio controls src="assets/audio/12o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/12lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/12lhtr.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/12.png" style="width: 100%;"></td>
+    </tr>
+  </tbody>
+</table>
