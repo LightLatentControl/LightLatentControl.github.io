@@ -21,7 +21,7 @@ This design achieves a significant reduction in parameters while maintaining com
 ---
 
 ## Audio Examples
-This page presents a collection of audio examples that demonstrate the capabilities of our proposed LiLAC architecture in comparison to traditional approaches. Each example consists of a 10-second audio segment generated using Diff-a-Riff as the backbone model, with a Classifier-Free Guidance (CFG) value of 0.25, 30 inference steps, and CLAP embedding for text conditioning.
+This page presents a collection of audio examples that demonstrate the capabilities of our proposed LiLAC architecture in comparison to traditional approaches. Each example consists of a 10-second audio segment generated using [Diff-a-Riff](https://arxiv.org/abs/2406.08384) as the backbone model, with a *Classifier-Free Guidance* (CFG) value of 0.25, 30 *inference steps*, and *CLAP embedding* for text conditioning.
 
 For comprehensive comparison, we provide the following versions of each example:
 - The original reference stem
@@ -32,7 +32,7 @@ For comprehensive comparison, we provide the following versions of each example:
 
 We provide examples from both conditions used in the paper - Chord and Chroma conditioning. We provide a brief description below, for more information, please check out the paper linked at the top of the page.
 
-###Chord
+### Chord
 For the chord conditioning examples, we extracted chord progressions from complete multitrack recordings (panned to the right in the audio examples). These chord progressions were then used to guide the generation of a complementary stem, with instrument classification informed by the CLAP embedding of the target stem.
 
 <table>
@@ -40,36 +40,258 @@ For the chord conditioning examples, we extracted chord progressions from comple
     <tr>
       <th>Instrument</th>
       <th>Original Sample</th>
-      <th>LiLAC H</th>
-      <th>LiLAC H+T+R</th>
-      <th>Condition</th>
+      <th>LiLAC<sup>H</sup></th>
+      <th>LiLAC<sup>HTR</sup></th>
+      <th>ControlNet</th>
+      <th>Unconditioned</th>
+      <th>Chords</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <td>Woodwinds</td>
+      <td><audio controls src="assets/audio/chords/0o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/0lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/0lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/0c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/0u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/0.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Piano</td>
+      <td><audio controls src="assets/audio/chords/1o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/1lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/1lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/1c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/1u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/1.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Flute</td>
+      <td><audio controls src="assets/audio/chords/3o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/3lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/3lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/3c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/3u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/3.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Distorted Electric Guitar</td>
+      <td><audio controls src="assets/audio/chords/5o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/5lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/5lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/5c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/5u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/5.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>String Section</td>
+      <td><audio controls src="assets/audio/chords/7o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/7lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/7lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/7c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/7u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/7.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Oboe</td>
+      <td><audio controls src="assets/audio/chords/14o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/14lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/14lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/14c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/14u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/14.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Hammond</td>
+      <td><audio controls src="assets/audio/chords/16o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/16lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/16lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/16c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/16u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/16.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
       <td>Electric Guitar</td>
-      <td><audio controls src="assets/audio/10o.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/10lh.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/10lhtr.mp3" class="small-audio"></audio></td>
-      <td><img src="assets/images/10.png" style="width: 100%;"></td>
+      <td><audio controls src="assets/audio/chords/21o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/21lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/21lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/21c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/21u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/21.png" style="width: 100%;"></td>
     </tr>
     <tr>
-      <td>Synth Pad</td>
-      <td><audio controls src="assets/audio/11o.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/11lh.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/11lhtr.mp3" class="small-audio"></audio></td>
-      <td><img src="assets/images/11.png" style="width: 100%;"></td>
+      <td>Electric Piano</td>
+      <td><audio controls src="assets/audio/chords/24o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/24lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/24lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/24c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/24u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/24.png" style="width: 100%;"></td>
     </tr>
     <tr>
-      <td>Lead Guitar</td>
-      <td><audio controls src="assets/audio/12o.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/12lh.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/12lhtr.mp3" class="small-audio"></audio></td>
-      <td><img src="assets/images/12.png" style="width: 100%;"></td>
+      <td>Acoustic Guitar</td>
+      <td><audio controls src="assets/audio/chords/27o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/27lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/27lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/27c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/27u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/27.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Acoustic Guitar</td>
+      <td><audio controls src="assets/audio/chords/32o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/32lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/32lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/32c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/32u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/32.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Synthesizer</td>
+      <td><audio controls src="assets/audio/chords/33o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/33lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/33lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/33c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/33u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/33.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Fiddle</td>
+      <td><audio controls src="assets/audio/chords/34o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/34lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/34lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/34c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/34u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/34.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Electric Bass</td>
+      <td><audio controls src="assets/audio/chords/37o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/37lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/37lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/37c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/37u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/37.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Upright Bass</td>
+      <td><audio controls src="assets/audio/chords/38o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/38lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/38lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/38c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chords/38u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chords/38.png" style="width: 100%;"></td>
     </tr>
   </tbody>
 </table>
 
 
-###Chroma
+### Chroma
 The chroma conditioning examples utilize chromagrams extracted directly from individual stems. The models attempt to recreate audio with similar pitch content based on these chromagrams.
+
+<table>
+  <thead>
+    <tr>
+      <th>Instrument</th>
+      <th>Original Sample</th>
+      <th>LiLAC<sup>H</sup></th>
+      <th>LiLAC<sup>HTR</sup></th>
+      <th>ControlNet</th>
+      <th>Unconditioned</th>
+      <th>Chroma</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Woodwinds</td>
+      <td><audio controls src="assets/audio/chroma/0o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/0lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/0lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/0c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/0u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/0.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Electric Guitar</td>
+      <td><audio controls src="assets/audio/chroma/3o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/3lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/3lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/3c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/3u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/3.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Arpegiator</td>
+      <td><audio controls src="assets/audio/chroma/4o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/4lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/4lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/4c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/4u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/4.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Guitar</td>
+      <td><audio controls src="assets/audio/chroma/6o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/6lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/6lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/6c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/6u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/6.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Rhythm Electric Guitar</td>
+      <td><audio controls src="assets/audio/chroma/8o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/8lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/8lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/8c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/8u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/8.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Electric Guitar</td>
+      <td><audio controls src="assets/audio/chroma/9o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/9lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/9lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/9c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/9u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/9.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Piano</td>
+      <td><audio controls src="assets/audio/chroma/10o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/10lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/10lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/10c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/10u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/10.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Electric Guitar</td>
+      <td><audio controls src="assets/audio/chroma/11o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/11lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/11lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/11c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/11u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/11.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Electric Bass</td>
+      <td><audio controls src="assets/audio/chroma/14o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/14lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/14lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/14c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/14u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/14.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Organ</td>
+      <td><audio controls src="assets/audio/chroma/15o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/15lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/15lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/15c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/15u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/15.png" style="width: 100%;"></td>
+    </tr>
+  </tbody>
+</table>
