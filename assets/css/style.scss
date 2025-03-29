@@ -11,27 +11,19 @@ $header-bg-color-secondary: #7652a3;
   display: none !important;
 }
 
-/* Simple compact audio player styling */
+/* Simple audio player styling - static size */
 audio.small-audio {
-  width: 110px;
+  width: 120px;
   height: 30px;
-  opacity: 0.9;
-  transition: all 0.3s ease;
-  border-radius: 4px;
   display: block;
   margin: 0 auto;
-  background-color: #f5f5f5;
-}
-
-audio.small-audio:hover,
-audio.small-audio:focus {
-  width: 160px;
-  opacity: 1;
+  background-color: #f9f9f9;
+  border-radius: 4px;
 }
 
 /* WebKit-specific styling */
 audio.small-audio::-webkit-media-controls-panel {
-  background-color: #f5f5f5;
+  background-color: #f9f9f9;
   border-radius: 4px;
 }
 
@@ -58,22 +50,9 @@ audio.small-audio::-webkit-media-controls-timeline {
 /* Firefox-specific styling */
 @-moz-document url-prefix() {
   audio.small-audio {
-    width: 110px;
+    width: 120px;
     height: 30px;
     border-radius: 4px;
-  }
-  
-  audio.small-audio:hover,
-  audio.small-audio:focus {
-    width: 160px;
-  }
-  
-  /* Try to hide volume controls in Firefox */
-  audio.small-audio::-moz-range-thumb,
-  audio.small-audio::-moz-range-track {
-    width: 0;
-    height: 0;
-    visibility: hidden;
   }
 }
 
@@ -88,8 +67,7 @@ audio.small-audio::-webkit-media-controls-timeline {
     
     th, td {
       text-align: center;
-      padding: 0.35rem 0.1rem;
-      white-space: nowrap;
+      padding: 0.35rem 0.15rem;
       overflow: hidden;
       text-overflow: ellipsis;
       vertical-align: middle;
@@ -107,14 +85,13 @@ audio.small-audio::-webkit-media-controls-timeline {
     
     /* Last column (images) */
     th:last-child, td:last-child {
-      width: 13%;
+      width: 12%;
     }
     
     /* Audio columns */
     th:not(:first-child):not(:last-child), 
     td:not(:first-child):not(:last-child) {
-      width: 12%;
-      padding: 0.35rem 0.15rem;
+      width: 13%;
     }
     
     img {
@@ -159,24 +136,15 @@ audio.small-audio::-webkit-media-controls-timeline {
         width: 8%;
       }
       
-      th:last-child, td:last-child {
-        width: 12%;
-      }
-      
       audio.small-audio {
-        width: 95px;
+        width: 100px;
         height: 28px;
-      }
-      
-      audio.small-audio:hover,
-      audio.small-audio:focus {
-        width: 130px;
       }
     }
   }
 }
 
-/* Enhanced modal styles for image popup */
+/* Modal styles for image popup */
 .modal {
   display: none;
   position: fixed;
@@ -187,12 +155,6 @@ audio.small-audio::-webkit-media-controls-timeline {
   height: 100%;
   overflow: hidden;
   background-color: rgba(0,0,0,0.85);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.modal.show {
-  opacity: 1;
 }
 
 .modal-content {
@@ -205,12 +167,6 @@ audio.small-audio::-webkit-media-controls-timeline {
   transform: translateY(-50%);
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   border: 2px solid rgba(255,255,255,0.1);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.modal.show .modal-content {
-  opacity: 1;
 }
 
 .close {
