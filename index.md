@@ -1,5 +1,7 @@
 ---
 layout: default
+title: LiLAC - A Lightweight Latent ControlNet for Musical Audio Generation
+description: Audio Examples
 ---
 
 ## Abstract
@@ -11,10 +13,13 @@ Text-to-audio diffusion models produce high-quality and diverse music but lack f
 <div style="width: 50%; margin: 0 auto;">
     <img src="assets/LiLAC.png" alt="Architecture Diagram" style="width: 100%;">
 </div>
-Here is a outline showing how the LiLAC architecture compares to ControlNet. Instead of the cloning encoder blocks of the backbone model we intend to append controls to, we instead  perform a second pass through each of the models frozen encoder blocks, wrapped by smaller convolutional layers. Specifically, we introduce three layers per block: 
+Here is a outline showing how the LiLAC architecture compares to ControlNet. Instead of the cloning encoder blocks of the backbone model we intend to append controls to, we instead  perform a second pass through each of the models frozen encoder blocks, wrapped by smaller convolutional layers. 
+
+Specifically, we introduce three layers per block: 
 - a *Head* layer before the frozen block 
 - a *Tail* layer after the frozen block 
 - a *Residual* connection to preserve condition information as it passes through the frozen block
+
 This design achieves a significant reduction in parameters while maintaining comparable performance to the original ControlNet implementation. Utilising Diff-a-Riff as our backbone model, our lightest configuration using only head layers (LiLAC<sup>H</sup>) consists of only 32M parameters compared to ControlNet's 165M parameters.
 
 
@@ -25,9 +30,9 @@ This page presents a collection of audio examples that demonstrate the capabilit
 
 For comprehensive comparison, we provide the following versions of each example:
 - The original reference stem
-- Output generated using the standard ControlNet architecture
 - Output generated using our lightweight LiLAC<sup>H</sup> configuration
 - Output generated using our optimal LiLAC<sup>HTR</sup> configuration
+- Output generated using the standard ControlNet architecture
 - Output generated without additional control conditioning (Unconditioned)
 
 We provide examples from both conditions used in the paper - Chord and Chroma conditioning. We provide a brief description below, for more information, please check out the paper linked at the top of the page.
@@ -39,12 +44,12 @@ For the chord conditioning examples, we extracted chord progressions from comple
   <thead>
     <tr>
       <th>Instrument</th>
-      <th>Original Sample</th>
+      <th>Original</th>
       <th>LiLAC<sup>H</sup></th>
       <th>LiLAC<sup>HTR</sup></th>
       <th>ControlNet</th>
       <th>Unconditioned</th>
-      <th>Chords</th>
+      <th>Chord Condition</th>
     </tr>
   </thead>
   <tbody>
@@ -194,12 +199,12 @@ The chroma conditioning examples utilize chromagrams extracted directly from ind
   <thead>
     <tr>
       <th>Instrument</th>
-      <th>Original Sample</th>
+      <th>Original</th>
       <th>LiLAC<sup>H</sup></th>
       <th>LiLAC<sup>HTR</sup></th>
       <th>ControlNet</th>
       <th>Unconditioned</th>
-      <th>Chroma</th>
+      <th>Chroma Condition</th>
     </tr>
   </thead>
   <tbody>
