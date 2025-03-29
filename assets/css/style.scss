@@ -11,24 +11,172 @@ $header-bg-color-secondary: #7652a3;
   display: none !important;
 }
 
+/* Simple compact audio player styling */
 audio.small-audio {
-  width: 100px; /* Adjust audio player width */
+  width: 110px;
+  height: 30px;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  display: block;
+  margin: 0 auto;
+  background-color: #f5f5f5;
 }
 
-.main-content{
+audio.small-audio:hover,
+audio.small-audio:focus {
+  width: 160px;
+  opacity: 1;
+}
+
+/* WebKit-specific styling */
+audio.small-audio::-webkit-media-controls-panel {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+/* Hide time display and volume controls */
+audio.small-audio::-webkit-media-controls-current-time-display,
+audio.small-audio::-webkit-media-controls-time-remaining-display,
+audio.small-audio::-webkit-media-controls-volume-slider,
+audio.small-audio::-webkit-media-controls-mute-button {
+  display: none !important;
+}
+
+/* Make sure play button is visible */
+audio.small-audio::-webkit-media-controls-play-button {
+  display: block;
+  opacity: 1;
+}
+
+/* Ensure progress bar is visible and gets more space */
+audio.small-audio::-webkit-media-controls-timeline {
+  display: flex !important;
+  flex-grow: 1;
+}
+
+/* Firefox-specific styling */
+@-moz-document url-prefix() {
+  audio.small-audio {
+    width: 110px;
+    height: 30px;
+    border-radius: 4px;
+  }
+  
+  audio.small-audio:hover,
+  audio.small-audio:focus {
+    width: 160px;
+  }
+  
+  /* Try to hide volume controls in Firefox */
+  audio.small-audio::-moz-range-thumb,
+  audio.small-audio::-moz-range-track {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+}
+
+.main-content {
+  /* Table optimized for better layout */
   table {
-    th,
-    td {
+    font-size: 0.8rem;
+    max-width: 100%;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    
+    th, td {
       text-align: center;
+      padding: 0.35rem 0.1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+    }
+    
+    /* First column (instrument names) */
+    th:first-child, td:first-child {
+      width: 8%;
+      font-size: 0.75rem;
+      text-align: left;
+      padding-left: 0.3rem;
+      white-space: normal; /* Allow wrapping */
+      line-height: 1.2;
+    }
+    
+    /* Last column (images) */
+    th:last-child, td:last-child {
+      width: 13%;
+    }
+    
+    /* Audio columns */
+    th:not(:first-child):not(:last-child), 
+    td:not(:first-child):not(:last-child) {
+      width: 12%;
+      padding: 0.35rem 0.15rem;
     }
     
     img {
       cursor: pointer; /* Shows a hand cursor on hover */
+      max-width: 100%;
+      height: auto;
+    }
+    
+    /* Add visual separation for rows */
+    tr:nth-child(even) {
+      background-color: rgba(0,0,0,0.025);
+    }
+    
+    tr:hover {
+      background-color: rgba(0,0,0,0.05);
+    }
+    
+    /* Header styling */
+    thead tr {
+      background-color: rgba(0,0,0,0.03);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    th {
+      font-weight: 600;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+  }
+  
+  /* Responsive table for small screens */
+  @media screen and (max-width: 768px) {
+    table {
+      font-size: 0.7rem;
+      
+      th, td {
+        padding: 0.25rem 0.1rem;
+      }
+      
+      th:first-child, td:first-child {
+        font-size: 0.7rem;
+        width: 8%;
+      }
+      
+      th:last-child, td:last-child {
+        width: 12%;
+      }
+      
+      audio.small-audio {
+        width: 95px;
+        height: 28px;
+      }
+      
+      audio.small-audio:hover,
+      audio.small-audio:focus {
+        width: 130px;
+      }
     }
   }
 }
 
-/* Modal styles for image popup */
+/* Enhanced modal styles for image popup */
 .modal {
   display: none;
   position: fixed;
@@ -37,8 +185,14 @@ audio.small-audio {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.8);
+  overflow: hidden;
+  background-color: rgba(0,0,0,0.85);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  opacity: 1;
 }
 
 .modal-content {
@@ -49,22 +203,55 @@ audio.small-audio {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  border: 2px solid rgba(255,255,255,0.1);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show .modal-content {
+  opacity: 1;
 }
 
 .close {
   position: absolute;
   top: 15px;
-  right: 35px;
+  right: 20px;
   color: #f1f1f1;
-  font-size: 40px;
+  font-size: 35px;
   font-weight: bold;
   transition: 0.3s;
   z-index: 1001;
+  padding: 5px 10px;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 30px;
+  text-align: center;
 }
 
 .close:hover,
 .close:focus {
-  color: #bbb;
+  color: #fff;
+  background-color: rgba(0,0,0,0.5);
   text-decoration: none;
   cursor: pointer;
+}
+
+/* Responsive modal adjustments */
+@media screen and (max-width: 768px) {
+  .modal-content {
+    max-width: 95%;
+    max-height: 95%;
+  }
+  
+  .close {
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    width: 35px;
+    height: 35px;
+    line-height: 25px;
+  }
 }

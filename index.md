@@ -26,7 +26,7 @@ This design achieves a significant reduction in parameters while maintaining com
 ---
 
 ## Audio Examples
-This page presents a collection of audio examples that demonstrate the capabilities of our proposed LiLAC architecture in comparison to traditional approaches. Each example consists of a 10-second audio segment generated using [Diff-a-Riff](https://arxiv.org/abs/2406.08384) as the backbone model, with a *Classifier-Free Guidance* (CFG) value of 0.25, 30 *inference steps*, and *CLAP embedding* for text conditioning.
+This page presents a collection of randomly generated audio examples that demonstrate the capabilities of our proposed LiLAC architecture in comparison to traditional approaches. Each example consists of a 10-second audio segment generated using [Diff-a-Riff](https://arxiv.org/abs/2406.08384) as the backbone model, with a *Classifier-Free Guidance* (CFG) value of 0.25, 30 *inference steps*, and *CLAP embedding* for text conditioning.
 
 For comprehensive comparison, we provide the following versions of each example:
 - The original reference stem
@@ -37,7 +37,7 @@ For comprehensive comparison, we provide the following versions of each example:
 
 We provide examples from both conditions used in the paper - Chord and Chroma conditioning. We provide a brief description below, for more information, please check out the paper linked at the top of the page.
 
-### Chord
+### Chord Conditioning
 For the chord conditioning examples, we extracted chord progressions from complete multitrack recordings (panned to the right in the audio examples). These chord progressions were then used to guide the generation of a complementary stem, with instrument classification informed by the CLAP embedding of the target stem.
 
 <table>
@@ -192,7 +192,7 @@ For the chord conditioning examples, we extracted chord progressions from comple
 </table>
 
 
-### Chroma
+### Chroma Conditioning
 The chroma conditioning examples utilize chromagrams extracted directly from individual stems. The models attempt to recreate audio with similar pitch content based on these chromagrams.
 
 <table>

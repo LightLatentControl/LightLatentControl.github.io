@@ -48,7 +48,7 @@
       var modalImg = document.getElementById('modalImg');
       var closeBtn = document.getElementsByClassName('close')[0];
       
-      // Initialize the image click listeners after the page is fully loaded
+      // Initialize after the page is fully loaded
       document.addEventListener('DOMContentLoaded', function() {
         // Find all images in tables and make them clickable
         var tableImages = document.querySelectorAll('table img');
@@ -56,21 +56,58 @@
           img.onclick = function() {
             modal.style.display = "block";
             modalImg.src = this.src;
+            // Use a small delay to allow the display property to take effect before adding the show class
+            setTimeout(function() {
+              modal.classList.add('show');
+            }, 10);
           }
+        });
+        
+        // Enhanced audio player functionality
+        var audioPlayers = document.querySelectorAll('audio.small-audio');
+        audioPlayers.forEach(function(player) {
+          // Add custom play/pause toggle
+          player.addEventListener('play', function() {
+            // Pause all other players when one starts playing
+            audioPlayers.forEach(function(otherPlayer) {
+              if (otherPlayer !== player && !otherPlayer.paused) {
+                otherPlayer.pause();
+              }
+            });
+          });
         });
       });
       
       // Close the modal when clicking the close button
       closeBtn.onclick = function() {
-        modal.style.display = "none";
+        modal.classList.remove('show');
+        // Wait for the fade out animation to complete before hiding
+        setTimeout(function() {
+          modal.style.display = "none";
+        }, 300);
       }
       
       // Close the modal when clicking outside the image
       window.onclick = function(event) {
         if (event.target == modal) {
-          modal.style.display = "none";
+          modal.classList.remove('show');
+          // Wait for the fade out animation to complete before hiding
+          setTimeout(function() {
+            modal.style.display = "none";
+          }, 300);
         }
       }
+      
+      // Keyboard support for modal
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && modal.style.display === 'block') {
+          modal.classList.remove('show');
+          // Wait for the fade out animation to complete before hiding
+          setTimeout(function() {
+            modal.style.display = "none";
+          }, 300);
+        }
+      });
     </script>
   </body>
 </html>
