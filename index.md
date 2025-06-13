@@ -15,7 +15,7 @@ emails:
 ## Abstract
 Text-to-audio diffusion models produce high-quality and diverse music but many, if not most, of the SOTA models lack the fine-grained, time-varying controls essential for music production. ControlNet enables attaching external controls to a pre-trained generative model by cloning and fine-tuning its encoder on new conditionings. However, this approach incurs a large memory footprint and restricts users to a fixed set of controls. We propose a lightweight, modular architecture that considerably reduces parameter count while matching ControlNet in audio quality and condition adherence. Our method offers greater flexibility and significantly lower memory usage, enabling more efficient training and deployment of independent controls. We conduct extensive objective and subjective evaluations, see complete paper for more details.
 
-<small>\*<sup>*</sup>Research was completed while at an internship at Sony CSL - Paris</small>
+<small><sup>*</sup>Research was completed while at an internship at Sony CSL - Paris</small>
 
 ---
 
