@@ -2,25 +2,40 @@
 layout: default
 title: LiLAC - A Lightweight Latent ControlNet for Musical Audio Generation
 description: Audio Examples
+authors:
+  - name: "Author Name 1"
+    affiliation: "University/Institution 1"
+  - name: "Author Name 2"
+    affiliation: "University/Institution 2"
 ---
 
+## Authors
+**Author Name 1**<sup>1</sup>, **Author Name 2**<sup>2</sup>
+
+<sup>1</sup>University/Institution 1  
+<sup>2</sup>University/Institution 2
+
 ## Abstract
-Text-to-audio diffusion models produce high-quality and diverse music but lack fine-grained, time-varying controls, which are essential for music production. ControlNet enables attaching external controls to a pre-trained generative model by cloning and fine-tuning its encoder on new conditionings. However, this approach incurs a large memory footprint and restricts users to a fixed set of controls. We propose a lightweight, modular architecture that considerably reduces parameter count while matching ControlNet in audio quality and condition adherence. Our method offers greater flexibility and significantly lower memory usage, enabling more efficient training and deployment of independent controls. We conduct extensive objective and subjective evaluations, see complete paper for more details.
+Text-to-audio diffusion models produce high-quality and diverse music but many, if not most, of the SOTA models lack the fine-grained, time-varying controls essential for music production. ControlNet enables attaching external controls to a pre-trained generative model by cloning and fine-tuning its encoder on new conditionings. However, this approach incurs a large memory footprint and restricts users to a fixed set of controls. We propose a lightweight, modular architecture that considerably reduces parameter count while matching ControlNet in audio quality and condition adherence. Our method offers greater flexibility and significantly lower memory usage, enabling more efficient training and deployment of independent controls. We conduct extensive objective and subjective evaluations, see complete paper for more details.
 
 ---
 
 ## Architecture Overview
+
+Our work, **LiLAC**, introduces a lightweight, parameter-efficient alternative to the commonly used ControlNet model for appending post-hoc controls to pre-trained models. Instead of cloning the backbone's computationally expensive encoder blocks, we leverage the existing frozen blocks by performing a second pass through them, wrapped by small, trainable adaptor layers.
+
 <div style="width: 50%; margin: 0 auto;">
     <img src="assets/LiLAC.png" alt="Architecture Diagram" style="width: 100%;">
 </div>
-Here is a outline showing how the LiLAC architecture compares to ControlNet. Instead of the cloning encoder blocks of the backbone model we intend to append controls to, we instead  perform a second pass through each of the models frozen encoder blocks, wrapped by smaller convolutional layers. 
 
-Specifically, we introduce three layers per block: 
+Specifically, we introduce three layers per encoder block as shown in the figure above: 
 - a *Head* layer before the frozen block 
 - a *Tail* layer after the frozen block 
 - a *Residual* connection to preserve condition information as it passes through the frozen block
 
-This design achieves a significant reduction in parameters while maintaining comparable performance to the original ControlNet implementation. Utilising Diff-a-Riff as our backbone model, our lightest configuration using only head layers (LiLAC<sup>H</sup>) consists of only 32M parameters compared to ControlNet's 165M parameters.
+To ensure training stability, we initialize the Head and Tail layers as Identity convolutions, which mirrors the backbone's pathway from the start. The residual connection is initialized as a zero convolution, following the ControlNet methodology. This allows the conditional signal to be introduced gradually during training.
+
+This design achieves a significant reduction in parameters while objective and subjective evaluations show it maintains comparable performance to the original ControlNet implementation. Using Diff-a-Riff as our backbone, our lightest configuration using only head layers (LiLAC<sup>H</sup>) consists of only 32M parameters, a reduction of 81% compared to ControlNet's 165M parameters. On heavier architectures such as Stable Audio Open this would provide a 90% reduction from 552M down to only 57M. This extra available parameter overhead allows for flexible and modular training of multiple independent controls without retraining the backbone model.
 
 
 ---
@@ -28,17 +43,127 @@ This design achieves a significant reduction in parameters while maintaining com
 ## Audio Examples
 This page presents a collection of randomly generated audio examples that demonstrate the capabilities of our proposed LiLAC architecture in comparison to traditional approaches. Each example consists of a 10-second audio segment generated using [Diff-a-Riff](https://arxiv.org/abs/2406.08384) as the backbone model, with a *Classifier-Free Guidance* (CFG) value of 0.25, 30 *inference steps*, and *CLAP embedding* for text conditioning.
 
-For comprehensive comparison, we provide the following versions of each example:
-- The original reference stem
-- Output generated using our lightweight LiLAC<sup>H</sup> configuration
-- Output generated using our optimal LiLAC<sup>HTR</sup> configuration
-- Output generated using the standard ControlNet architecture
-- Output generated without additional control conditioning (Unconditioned)
+FFor comprehensive comparison, we provide the following versions for each example:
+- **Original reference stem** - The source audio
+- **LiLAC<sup>H</sup>** - Output from our lightweight head-only configuration
+- **LiLAC<sup>HTR</sup>** - Output from our optimal head-tail-residual configuration  
+- **ControlNet** - Output from the standard ControlNet architecture
+- **Unconditioned** - Output generated without additional control conditioning
 
-We provide examples from both conditions used in the paper - Chord and Chroma conditioning. We provide a brief description below, for more information, please check out the paper linked at the top of the page.
+Below we showcase audio examples demonstrating both conditioning types explored in our paper - Chord and Chroma conditioning. Each example demonstrates how our model responds to different types of musical control signals. For detailed technical analysis of these conditions, please refer to the full paper linked above.
+
+### Chroma Conditioning
+The chroma conditioning examples utilize chromagrams extracted directly from individual stems. Chromagrams represent the normalised intensity of different pitch classes (C, C#, D, etc.) over time, providing detailed harmonic data of the original audio. The models attempt to recreate audio with similar pitch content based on these chromagrams, while maintaining timbral characteristics specified by the CLAP embedding. 
+
+<table>
+  <thead>
+    <tr>
+      <th>Instrument</th>
+      <th>Original</th>
+      <th>LiLAC<sup>H</sup></th>
+      <th>LiLAC<sup>HTR</sup></th>
+      <th>ControlNet</th>
+      <th>Unconditioned</th>
+      <th>Chroma Condition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Woodwinds</td>
+      <td><audio controls src="assets/audio/chroma/0o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/0lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/0lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/0c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/0u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/0.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Electric Guitar</td>
+      <td><audio controls src="assets/audio/chroma/3o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/3lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/3lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/3c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/3u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/3.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Arpegiator</td>
+      <td><audio controls src="assets/audio/chroma/4o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/4lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/4lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/4c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/4u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/4.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Guitar</td>
+      <td><audio controls src="assets/audio/chroma/6o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/6lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/6lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/6c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/6u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/6.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Rhythm Electric Guitar</td>
+      <td><audio controls src="assets/audio/chroma/8o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/8lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/8lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/8c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/8u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/8.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Electric Guitar</td>
+      <td><audio controls src="assets/audio/chroma/9o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/9lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/9lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/9c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/9u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/9.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Piano</td>
+      <td><audio controls src="assets/audio/chroma/10o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/10lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/10lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/10c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/10u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/10.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Electric Guitar</td>
+      <td><audio controls src="assets/audio/chroma/11o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/11lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/11lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/11c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/11u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/11.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Electric Bass</td>
+      <td><audio controls src="assets/audio/chroma/14o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/14lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/14lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/14c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/14u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/14.png" style="width: 100%;"></td>
+    </tr>
+    <tr>
+      <td>Organ</td>
+      <td><audio controls src="assets/audio/chroma/15o.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/15lh.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/15lhtr.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/15c.mp3" class="small-audio"></audio></td>
+      <td><audio controls src="assets/audio/chroma/15u.mp3" class="small-audio"></audio></td>
+      <td><img src="assets/images/chroma/15.png" style="width: 100%;"></td>
+    </tr>
+  </tbody>
+</table>
+
 
 ### Chord Conditioning
-For the chord conditioning examples, we extracted chord progressions from complete multitrack recordings (panned to the right in the audio examples). These chord progressions were then used to guide the generation of a complementary stem, with instrument classification informed by the CLAP embedding of the target stem.
+For chord conditioning, we extracted chord progressions from full multitrack recordings. In the audio examples, these reference chords are panned right while the generated complementary stem is panned left. The chord conditions are represented similar to chromagrams: root notes have value 2, other chord notes value 1, and non-chord notes value 0. The generated audio's instrumental characteristics are guided by CLAP embeddings.
 
 <table>
   <thead>
@@ -187,116 +312,6 @@ For the chord conditioning examples, we extracted chord progressions from comple
       <td><audio controls src="assets/audio/chords/38c.mp3" class="small-audio"></audio></td>
       <td><audio controls src="assets/audio/chords/38u.mp3" class="small-audio"></audio></td>
       <td><img src="assets/images/chords/38.png" style="width: 100%;"></td>
-    </tr>
-  </tbody>
-</table>
-
-
-### Chroma Conditioning
-The chroma conditioning examples utilize chromagrams extracted directly from individual stems. The models attempt to recreate audio with similar pitch content based on these chromagrams.
-
-<table>
-  <thead>
-    <tr>
-      <th>Instrument</th>
-      <th>Original</th>
-      <th>LiLAC<sup>H</sup></th>
-      <th>LiLAC<sup>HTR</sup></th>
-      <th>ControlNet</th>
-      <th>Unconditioned</th>
-      <th>Chroma Condition</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Woodwinds</td>
-      <td><audio controls src="assets/audio/chroma/0o.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/0lh.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/0lhtr.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/0c.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/0u.mp3" class="small-audio"></audio></td>
-      <td><img src="assets/images/chroma/0.png" style="width: 100%;"></td>
-    </tr>
-    <tr>
-      <td>Electric Guitar</td>
-      <td><audio controls src="assets/audio/chroma/3o.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/3lh.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/3lhtr.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/3c.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/3u.mp3" class="small-audio"></audio></td>
-      <td><img src="assets/images/chroma/3.png" style="width: 100%;"></td>
-    </tr>
-    <tr>
-      <td>Arpegiator</td>
-      <td><audio controls src="assets/audio/chroma/4o.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/4lh.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/4lhtr.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/4c.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/4u.mp3" class="small-audio"></audio></td>
-      <td><img src="assets/images/chroma/4.png" style="width: 100%;"></td>
-    </tr>
-    <tr>
-      <td>Guitar</td>
-      <td><audio controls src="assets/audio/chroma/6o.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/6lh.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/6lhtr.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/6c.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/6u.mp3" class="small-audio"></audio></td>
-      <td><img src="assets/images/chroma/6.png" style="width: 100%;"></td>
-    </tr>
-    <tr>
-      <td>Rhythm Electric Guitar</td>
-      <td><audio controls src="assets/audio/chroma/8o.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/8lh.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/8lhtr.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/8c.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/8u.mp3" class="small-audio"></audio></td>
-      <td><img src="assets/images/chroma/8.png" style="width: 100%;"></td>
-    </tr>
-    <tr>
-      <td>Electric Guitar</td>
-      <td><audio controls src="assets/audio/chroma/9o.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/9lh.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/9lhtr.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/9c.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/9u.mp3" class="small-audio"></audio></td>
-      <td><img src="assets/images/chroma/9.png" style="width: 100%;"></td>
-    </tr>
-    <tr>
-      <td>Piano</td>
-      <td><audio controls src="assets/audio/chroma/10o.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/10lh.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/10lhtr.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/10c.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/10u.mp3" class="small-audio"></audio></td>
-      <td><img src="assets/images/chroma/10.png" style="width: 100%;"></td>
-    </tr>
-    <tr>
-      <td>Electric Guitar</td>
-      <td><audio controls src="assets/audio/chroma/11o.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/11lh.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/11lhtr.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/11c.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/11u.mp3" class="small-audio"></audio></td>
-      <td><img src="assets/images/chroma/11.png" style="width: 100%;"></td>
-    </tr>
-    <tr>
-      <td>Electric Bass</td>
-      <td><audio controls src="assets/audio/chroma/14o.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/14lh.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/14lhtr.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/14c.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/14u.mp3" class="small-audio"></audio></td>
-      <td><img src="assets/images/chroma/14.png" style="width: 100%;"></td>
-    </tr>
-    <tr>
-      <td>Organ</td>
-      <td><audio controls src="assets/audio/chroma/15o.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/15lh.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/15lhtr.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/15c.mp3" class="small-audio"></audio></td>
-      <td><audio controls src="assets/audio/chroma/15u.mp3" class="small-audio"></audio></td>
-      <td><img src="assets/images/chroma/15.png" style="width: 100%;"></td>
     </tr>
   </tbody>
 </table>
