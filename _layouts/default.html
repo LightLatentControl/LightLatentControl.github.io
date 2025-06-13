@@ -15,21 +15,30 @@
         margin-bottom: 0.1rem !important;
         color: rgba(255, 255, 255, 1);
         font-size: 1.1em;
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
       }
       .project-affiliations {
         margin-bottom: 0.1rem !important;
         margin-top: 0.1rem !important;
         color: rgba(255, 255, 255, 0.85);
         font-size: 0.95em;
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
       }
       .project-emails {
         margin-top: 0.1rem !important;
         margin-bottom: 0.5rem !important;
         color: rgba(255, 255, 255, 0.7);
         font-size: 0.85em;
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
       }
-      .author-separator {
-        margin: 0 2em;
+      .author-column {
+        text-align: center;
       }
     </style>
     {% include head-custom.html %}
@@ -41,16 +50,17 @@
       <h1 class="project-name">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
       {% if page.authors %}
         <h2 class="project-authors">
-          {% for author in page.authors %}
-            {{ author.name }}{% if author.affiliation contains ',' %}<sup>1,2*</sup>{% else %}<sup>{% if author.affiliation == 'Sony CSL - Paris' %}2{% else %}1{% endif %}</sup>{% endif %}{% unless forloop.last %} &nbsp;&nbsp;&nbsp;&nbsp; {% endunless %}
-          {% endfor %}
+          <div class="author-column">Tom Baker<sup>1,2*</sup></div>
+          <div class="author-column">Javier Nistal<sup>2</sup></div>
         </h2>
         <h3 class="project-affiliations">
-          <sup>1</sup>University of Manchester &nbsp;&nbsp;&nbsp;&nbsp; <sup>2</sup>Sony CSL - Paris
+          <div class="author-column"><sup>1</sup>University of Manchester</div>
+          <div class="author-column"><sup>2</sup>Sony CSL - Paris</div>
         </h3>
         {% if page.emails %}
         <h4 class="project-emails">
-          {% for email in page.emails %}{{ email }}{% unless forloop.last %} &nbsp;&nbsp;&nbsp;&nbsp; {% endunless %}{% endfor %}
+          <div class="author-column">tom.baker@manchester.ac.uk</div>
+          <div class="author-column">javier.nistal@sony.com</div>
         </h4>
         {% endif %}
       {% else %}
