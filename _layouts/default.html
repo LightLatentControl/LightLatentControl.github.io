@@ -10,6 +10,28 @@
     <meta name="theme-color" content="#157878">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    <style>
+      .project-authors {
+        margin-bottom: 0.1rem !important;
+        color: rgba(255, 255, 255, 1);
+        font-size: 1.1em;
+      }
+      .project-affiliations {
+        margin-bottom: 0.1rem !important;
+        margin-top: 0.1rem !important;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 0.95em;
+      }
+      .project-emails {
+        margin-top: 0.1rem !important;
+        margin-bottom: 0.5rem !important;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.85em;
+      }
+      .author-separator {
+        margin: 0 2em;
+      }
+    </style>
     {% include head-custom.html %}
   </head>
   <body>
@@ -20,16 +42,15 @@
       {% if page.authors %}
         <h2 class="project-authors">
           {% for author in page.authors %}
-            {{ author.name }}{% if author.affiliation contains ',' %}<sup>1,2*</sup>{% else %}<sup>{% if author.affiliation == 'Sony CSL - Paris' %}2{% else %}1{% endif %}</sup>{% endif %}{% unless forloop.last %}, {% endunless %}
+            {{ author.name }}{% if author.affiliation contains ',' %}<sup>1,2*</sup>{% else %}<sup>{% if author.affiliation == 'Sony CSL - Paris' %}2{% else %}1{% endif %}</sup>{% endif %}{% unless forloop.last %} &nbsp;&nbsp;&nbsp;&nbsp; {% endunless %}
           {% endfor %}
         </h2>
         <h3 class="project-affiliations">
-          <sup>1</sup>University of Manchester, <sup>2</sup>Sony CSL - Paris<br>
-          <small>*Research was completed while at an internship at Sony CSL - Paris</small>
+          <sup>1</sup>University of Manchester &nbsp;&nbsp;&nbsp;&nbsp; <sup>2</sup>Sony CSL - Paris
         </h3>
         {% if page.emails %}
         <h4 class="project-emails">
-          {% for email in page.emails %}{{ email }}{% unless forloop.last %}, {% endunless %}{% endfor %}
+          {% for email in page.emails %}{{ email }}{% unless forloop.last %} &nbsp;&nbsp;&nbsp;&nbsp; {% endunless %}{% endfor %}
         </h4>
         {% endif %}
       {% else %}
