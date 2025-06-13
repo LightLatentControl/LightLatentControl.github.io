@@ -3,17 +3,14 @@ layout: default
 title: LiLAC - A Lightweight Latent ControlNet for Musical Audio Generation
 description: Audio Examples
 authors:
-  - name: "Author Name 1"
-    affiliation: "University/Institution 1"
-  - name: "Author Name 2"
-    affiliation: "University/Institution 2"
+  - name: "Tom Baker"
+    affiliation: "University of Manchester, Sony CSL - Paris"
+  - name: "Javier Nistal"
+    affiliation: "Sony CSL - Paris"
+emails:
+  - "tom.baker@manchester.ac.uk"
+  - "javier.nistal@sony.com"
 ---
-
-## Authors
-**Author Name 1**<sup>1</sup>, **Author Name 2**<sup>2</sup>
-
-<sup>1</sup>University/Institution 1  
-<sup>2</sup>University/Institution 2
 
 ## Abstract
 Text-to-audio diffusion models produce high-quality and diverse music but many, if not most, of the SOTA models lack the fine-grained, time-varying controls essential for music production. ControlNet enables attaching external controls to a pre-trained generative model by cloning and fine-tuning its encoder on new conditionings. However, this approach incurs a large memory footprint and restricts users to a fixed set of controls. We propose a lightweight, modular architecture that considerably reduces parameter count while matching ControlNet in audio quality and condition adherence. Our method offers greater flexibility and significantly lower memory usage, enabling more efficient training and deployment of independent controls. We conduct extensive objective and subjective evaluations, see complete paper for more details.
@@ -43,7 +40,7 @@ This design achieves a significant reduction in parameters while objective and s
 ## Audio Examples
 This page presents a collection of randomly generated audio examples that demonstrate the capabilities of our proposed LiLAC architecture in comparison to traditional approaches. Each example consists of a 10-second audio segment generated using [Diff-a-Riff](https://arxiv.org/abs/2406.08384) as the backbone model, with a *Classifier-Free Guidance* (CFG) value of 0.25, 30 *inference steps*, and *CLAP embedding* for text conditioning.
 
-FFor comprehensive comparison, we provide the following versions for each example:
+For comprehensive comparison, we provide the following versions for each example:
 - **Original reference stem** - The source audio
 - **LiLAC<sup>H</sup>** - Output from our lightweight head-only configuration
 - **LiLAC<sup>HTR</sup>** - Output from our optimal head-tail-residual configuration  

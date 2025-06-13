@@ -17,7 +17,24 @@
 
     <header class="page-header" role="banner">
       <h1 class="project-name">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
-      <h2 class="project-tagline">{{ page.description | default: site.description | default: site.github.project_tagline }}</h2>
+      {% if page.authors %}
+        <h2 class="project-authors">
+          {% for author in page.authors %}
+            {{ author.name }}{% if author.affiliation contains ',' %}<sup>1,2*</sup>{% else %}<sup>{% if author.affiliation == 'Sony CSL - Paris' %}2{% else %}1{% endif %}</sup>{% endif %}{% unless forloop.last %}, {% endunless %}
+          {% endfor %}
+        </h2>
+        <h3 class="project-affiliations">
+          <sup>1</sup>University of Manchester, <sup>2</sup>Sony CSL - Paris<br>
+          <small>*Research was completed while at an internship at Sony CSL - Paris</small>
+        </h3>
+        {% if page.emails %}
+        <h4 class="project-emails">
+          {% for email in page.emails %}{{ email }}{% unless forloop.last %}, {% endunless %}{% endfor %}
+        </h4>
+        {% endif %}
+      {% else %}
+        <h2 class="project-tagline">{{ page.description | default: site.description | default: site.github.project_tagline }}</h2>
+      {% endif %}
       <a href="https://www.google.com/" class="btn">Paper (Coming Soon)</a>
       {% if site.show_downloads %}
         <a href="{{ site.github.zip_url }}" class="btn">Download .zip</a>
