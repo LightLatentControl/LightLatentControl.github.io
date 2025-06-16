@@ -11,7 +11,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
     <style>
+      .page-header {
+        padding-top: 3em !important;
+        padding-bottom: 3em !important;
+      }
       .project-authors {
+        margin-top: 1em !important;
         margin-bottom: 0.1rem !important;
         color: rgba(255, 255, 255, 1);
         font-size: 1.1em;
@@ -69,7 +74,7 @@
         <h2 class="project-tagline">{{ page.description | default: site.description | default: site.github.project_tagline }}</h2>
       {% endif %}
       <div style="margin-top:3rem;">
-        <a href="https://www.google.com/" class="btn">Paper (Coming Soon)</a>
+        <a href="https://arxiv.org/abs/2506.11476" class="btn">Paper</a>
       {% if site.show_downloads %}
         <a href="{{ site.github.zip_url }}" class="btn">Download .zip</a>
         <a href="{{ site.github.tar_url }}" class="btn">Download .tar.gz</a>

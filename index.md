@@ -15,15 +15,15 @@ emails:
 ## Abstract
 Text-to-audio diffusion models produce high-quality and diverse music but many, if not most, of the SOTA models lack the fine-grained, time-varying controls essential for music production. ControlNet enables attaching external controls to a pre-trained generative model by cloning and fine-tuning its encoder on new conditionings. However, this approach incurs a large memory footprint and restricts users to a fixed set of controls. We propose a lightweight, modular architecture that considerably reduces parameter count while matching ControlNet in audio quality and condition adherence. Our method offers greater flexibility and significantly lower memory usage, enabling more efficient training and deployment of independent controls. We conduct extensive objective and subjective evaluations, see complete paper for more details.
 
-<small><sup>*</sup>Research was completed while at an internship at Sony CSL - Paris</small>
-
 ---
+
+<small><sup>*</sup>Research was completed while at an internship at Sony CSL - Paris</small>
 
 ## Architecture Overview
 
 Our work, **LiLAC**, introduces a lightweight, parameter-efficient alternative to the commonly used ControlNet model for appending post-hoc controls to pre-trained models. Instead of cloning the backbone's computationally expensive encoder blocks, we leverage the existing frozen blocks by performing a second pass through them, wrapped by small, trainable adaptor layers.
 
-<div style="width: 50%; margin: 0 auto;">
+<div style="width: 80%; margin: 0 auto;">
     <img src="assets/LiLAC.png" alt="Architecture Diagram" style="width: 100%;">
 </div>
 
