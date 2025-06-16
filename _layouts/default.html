@@ -13,7 +13,7 @@
     <style>
       .page-header {
         padding-top: 3em !important;
-        padding-bottom: 3em !important;
+        padding-bottom: 2em !important;
       }
       .project-authors {
         margin-top: 1em !important;
@@ -22,7 +22,7 @@
         font-size: 1.1em;
         display: flex;
         justify-content: center;
-        gap: 4rem;
+        gap: 3rem;
       }
       .project-affiliations {
         margin-bottom: 0.1rem !important;
@@ -31,7 +31,7 @@
         font-size: 0.95em;
         display: flex;
         justify-content: center;
-        gap: 4rem;
+        gap: 3rem;
       }
       .project-emails {
         margin-top: 0.1rem !important;
@@ -40,7 +40,7 @@
         font-size: 0.85em;
         display: flex;
         justify-content: center;
-        gap: 4rem;
+        gap: 3rem;
       }
       .author-column {
         text-align: center;
@@ -73,7 +73,7 @@
       {% else %}
         <h2 class="project-tagline">{{ page.description | default: site.description | default: site.github.project_tagline }}</h2>
       {% endif %}
-      <div style="margin-top:3rem;">
+      <div style="margin-top:2rem;">
         <a href="https://arxiv.org/abs/2506.11476" class="btn">Paper</a>
       {% if site.show_downloads %}
         <a href="{{ site.github.zip_url }}" class="btn">Download .zip</a>
